@@ -22,13 +22,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //chỉ chạy trong vòng đời của activity (cụ thể là oncreate vòng đời của activity)
-        Thread thread = new Thread(new Runnable() {
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                //running
+//                Log.d("BBB", "xin chào");
+//            }
+//        });
+//        thread.start();
+
+        Thread threada = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, "Xin chao", Toast.LENGTH_SHORT).show();
+                //running
+                handle("Thead A");
+            }
+        });
+        Thread threadb = new Thread(new Runnable() {
             @Override
             public void run() {
                 //running
-                Log.d("BBB", "xin chào");
+
+                handle("Thead B");
             }
         });
-        thread.start();
+        threadb.start();
+        threada.start();
+    }
+    //synchronized (trong java) được gắn cho đối tượng hoặc phương thức
+    synchronized public void handle(String key) {
+        for (int i = 0; i <= 100; i++) {
+            Log.d("BBB", key + " : " + i);
+        }
     }
 }
